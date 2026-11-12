@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My City Service — Trusted Local Home & Personal Services</title>
+  <meta name="description"
+    content="Book expert salon, cleaning, electrician, plumbing, carpentry, repair, cooking and painting services in your city at transparent prices.">
+  <meta name="keywords"
+    content="home services, salon at home, electrician, plumber, cleaner, repair, My City Service, Chhindwara">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="app-body">
+
+  <!-- Desktop & Mobile Header -->
+  <header class="app-header" id="appHeader">
+    <div class="header-container">
+      <!-- Left: Brand & Location -->
+      <div class="header-brand-block">
+        <div class="brand-group" onclick="router.navigate('home')">
+          <div class="brand-logo">
+            <i class="fa-solid fa-city-bolt brand-icon"></i>
+            <span class="logo-pulse"></span>
+          </div>
+          <div class="brand-text">
+            <h1 class="brand-name">My City <span class="highlight">Service</span></h1>
+            <p class="brand-tagline">Trusted Doorstep Care</p>
+          </div>
+        </div>
+
+        <!-- Location Pill -->
+        <button class="location-pill" id="locationBtn" aria-label="Select City and Locality">
+          <div class="location-icon-box">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <div class="location-text-content">
+            <span class="location-label">Service City</span>
+            <span class="location-current" id="headerLocationText">Chhindwara, MP</span>
+          </div>
+          <i class="fa-solid fa-chevron-down location-arrow"></i>
+        </button>
+      </div>
+
+      <!-- Center: Live Search Bar -->
+      <div class="header-search-wrap">
+        <div class="search-input-box" id="headerSearchBox" title="Click to search services">
+          <i class="fa-solid fa-magnifying-glass search-icon" id="searchIconBtn" title="Search services"></i>
+          <input type="text" id="globalSearchInput" placeholder='Search "Salon", "Electrician", "AC Repair"...'
+            autocomplete="off" aria-label="Search services or categories">
+          <span class="search-shortcut desktop-only" title="Keyboard shortcut: press / to search">/</span>
+          <button class="clear-search-btn hidden" id="clearSearchBtn" aria-label="Clear search" title="Clear search">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <!-- Live Instant Search Suggestions Dropdown -->
+        <div class="search-suggestions-dropdown hidden" id="searchSuggestionsBox">
+          <div class="search-suggestions-header">
+            <span id="suggestionsHeaderTitle">Quick Suggestions</span>
+            <span class="suggestion-count" id="suggestionCount"></span>
+          </div>
+          <div class="suggestions-list" id="suggestionsList"></div>
+          <div class="search-suggestions-footer">
+            <button class="btn-text-link" id="viewAllSearchResultsBtn">View all results <i
+                class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Desktop Navigation Links & Action Buttons -->
+      <div class="header-nav-actions">
+        <!-- Desktop Navigation Links -->
+        <nav class="desktop-nav" aria-label="Main Navigation">
+          <a href="#home" class="nav-link active" data-nav="home">
+            <i class="fa-solid fa-house"></i> <span>Home</span>
+          </a>
+          <a href="#categories" class="nav-link" data-nav="categories">
+            <i class="fa-solid fa-grid-2"></i> <span>Categories</span>
+          </a>
+          <a href="#bookings" class="nav-link" data-nav="bookings">
+            <i class="fa-solid fa-calendar-check"></i> <span>Bookings</span>
+          </a>
+          <a href="#offers" class="nav-link" data-nav="offers">
+            <i class="fa-solid fa-ticket-simple"></i> <span>Offers</span>
+          </a>
+        </nav>
+
+        <!-- Header Actions: Wishlist & Notifications & Cart & Profile -->
+        <div class="header-actions">
+          <button class="action-btn desktop-only" id="headerWishlistBtn" title="Saved Wishlist" aria-label="Wishlist">
+            <i class="fa-regular fa-heart"></i>
+            <span class="badge" id="wishlistBadge">0</span>
+          </button>
+
+          <button class="action-btn" id="headerNotifBtn" title="Notifications" aria-label="Notifications">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge" id="notifBadge">3</span>
+          </button>
+
+          <button class="action-btn cart-btn-header" id="headerCartBtn" title="Cart" aria-label="Shopping Cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-label desktop-only">Cart</span>
+            <span class="badge" id="cartBadge">0</span>
+          </button>
+
+          <button class="profile-avatar-btn desktop-only" id="headerProfileBtn" aria-label="User Profile"
+            onclick="router.navigate('profile')">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+              alt="User Profile" id="headerUserAvatar" class="avatar-img"
+              onerror="this.src='https://ui-avatars.com/api/?name=Anjali+S&background=1e3a8a&color=fff'">
+            <span class="user-greeting">Anjali <i class="fa-solid fa-chevron-down avatar-arrow"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Global Banner Notice for Demo Mode -->
+  <div class="demo-banner">
+    <div class="demo-banner-content">
+      <i class="fa-solid fa-circle-info"></i>
+      <span><strong>Live Frontend Showcase:</strong> Bookings & profile are saved locally in your browser. Real service
+        partners will not be dispatched.</span>
+    </div>
+  </div>
+
+  <!-- Main View Router Container -->
+  <main class="main-content-wrapper" id="mainAppContainer">
+
+    <!-- ================= VIEW 1: HOME PAGE ================= -->
+    <section class="app-view active" id="view-home">
+      <!-- Hero Carousel Section -->
+      <div class="hero-carousel-section">
+        <div class="carousel-container" id="promoCarousel">
+          <div class="carousel-track" id="carouselTrack">
+            <!-- Slide 1 -->
+            <div class="carousel-slide active" data-index="0">
+              <div class="slide-card slide-blue">
+                <div class="slide-content">
+                  <span class="slide-tag"><i class="fa-solid fa-sparkles"></i> Most Popular</span>
+                  <h2 class="slide-title">Home Deep Cleaning <br><span class="discount-pill">FLAT 50% OFF</span></h2>
+                  <p class="slide-desc">Sanitized, spotless & sparkling homes by certified professionals.</p>
+                  <div class="slide-actions">
+                    <button class="btn btn-primary" onclick="router.navigate('category', {id: 'cleaning'})">Book
+                      Cleaning</button>
+                    <button class="btn btn-glass" onclick="openOfferDetailsModal('CLEAN50')">Know More</button>
+                  </div>
+                </div>
+                <div class="slide-image-wrap">
+                  <img
+                    src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=80"
+                    alt="Home Deep Cleaning Services" class="slide-img"
+                    onerror="this.src='https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80'">
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-slide" data-index="1">
+              <div class="slide-card slide-navy">
+                <div class="slide-content">
+                  <span class="slide-tag"><i class="fa-solid fa-wand-magic-sparkles"></i> Salon at Home</span>
+                  <h2 class="slide-title">Glow Facial & Spa <br><span class="discount-pill gold">UPTO 40% OFF</span>
+                  </h2>
+                  <p class="slide-desc">Top-rated beauty stylists, mono-dose hygienic kits & relax treatments.</p>
+                  <div class="slide-actions">
+                    <button class="btn btn-primary" onclick="router.navigate('category', {id: 'salon'})">Explore
+                      Salon</button>
+                    <button class="btn btn-glass" onclick="openOfferDetailsModal('TRYNEW')">Know More</button>
+                  </div>
+                </div>
+                <div class="slide-image-wrap">
+                  <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=900&q=80"
+                    alt="Salon and Spa at Home" class="slide-img"
+                    onerror="this.src='https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80'">
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-slide" data-index="2">
+              <div class="slide-card slide-teal">
+                <div class="slide-content">
+                  <span class="slide-tag"><i class="fa-solid fa-bolt"></i> Quick Fix in 30 Mins</span>
+                  <h2 class="slide-title">Electrician & AC Care <br><span class="discount-pill green">STARTS AT
+                      ₹149</span></h2>
+                  <p class="slide-desc">Prompt switchboard repair, appliance installation & certified safety guarantee.
+                  </p>
+                  <div class="slide-actions">
+                    <button class="btn btn-primary" onclick="router.navigate('category', {id: 'electrician'})">Find
+                      Electrician</button>
+                    <button class="btn btn-glass" onclick="openOfferDetailsModal('CITY10')">Know More</button>
+                  </div>
+                </div>
+                <div class="slide-image-wrap">
+                  <img
+                    src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=900&q=80"
+                    alt="Electrician Repair Services" class="slide-img"
+                    onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80'">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carousel Controls -->
+          <button class="carousel-nav-btn prev" id="carouselPrevBtn" aria-label="Previous slide">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="carousel-nav-btn next" id="carouselNextBtn" aria-label="Next slide">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+
+          <!-- Slide Indicators -->
+          <div class="carousel-indicators" id="carouselIndicators">
+            <button class="indicator active" data-slide="0" aria-label="Slide 1"></button>
+            <button class="indicator" data-slide="1" aria-label="Slide 2"></button>
+            <button class="indicator" data-slide="2" aria-label="Slide 3"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust Badges Bar -->
+      <section class="trust-bar-section">
+        <div class="trust-item">
+          <div class="trust-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="trust-info">
+            <h4>Verified Experts</h4>
+            <p>Background checked pros</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon"><i class="fa-solid fa-tags"></i></div>
+          <div class="trust-info">
+            <h4>Fixed Pricing</h4>
+            <p>No hidden charges</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+          <div class="trust-info">
+            <h4>On-Time Guarantee</h4>
+            <p>Or ₹50 cashback</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+          <div class="trust-info">
+            <h4>Re-work Assurance</h4>
+            <p>7-day service warranty</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Popular Service Categories Grid -->
+      <section class="section home-categories-section">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Popular Categories</h2>
+            <p class="section-subtitle">Select from our wide range of professional household services</p>
+          </div>
+          <button class="btn-text" onclick="router.navigate('categories')">View All (21) <i
+              class="fa-solid fa-arrow-right"></i></button>
+        </div>
+
+        <div class="categories-grid-home" id="homeCategoriesGrid">
+          <!-- Populated dynamically by script.js with 12 popular items -->
+        </div>
+      </section>
+
+      <!-- Most Booked Services (with Skeleton & Filter Tabs) -->
+      <section class="section most-booked-section">
+        <div class="section-header">
+          <div>
+            <span class="section-badge"><i class="fa-solid fa-fire"></i> Trending Now</span>
+            <h2 class="section-title">Most Booked Services</h2>
+            <p class="section-subtitle">Customer-favorite services booked across Chhindwara & nearby towns</p>
+          </div>
+          <div class="section-header-actions">
+            <div class="filter-pills" id="homeServiceFilterPills">
+              <button class="pill-btn active" data-filter="all">All</button>
+              <button class="pill-btn" data-filter="salon">Salon</button>
+              <button class="pill-btn" data-filter="cleaning">Cleaning</button>
+              <button class="pill-btn" data-filter="electrician">Electrician</button>
+              <button class="pill-btn" data-filter="plumbing">Plumbing</button>
+            </div>
+            <button class="btn-text desktop-only" onclick="router.navigate('search')">Browse Catalog <i
+                class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <!-- Services Grid Container -->
+        <div class="services-cards-grid" id="mostBookedServicesGrid">
+          <!-- Skeleton Loading placeholder will be shown initially, then replaced -->
+        </div>
+      </section>
+
+      <!-- Offers & Promo Coupons Section -->
+      <section class="section offers-coupons-section">
+        <div class="section-header">
+          <div>
+            <span class="section-badge gold"><i class="fa-solid fa-percent"></i> Big Savings</span>
+            <h2 class="section-title">Coupons & Special Offers</h2>
+            <p class="section-subtitle">Copy coupon codes to claim instant discounts during checkout</p>
+          </div>
+        </div>
+
+        <div class="coupons-slider" id="couponsSlider">
+          <!-- Populated by JavaScript -->
+        </div>
+      </section>
+
+      <!-- How It Works Section -->
+      <section class="section how-it-works-section">
+        <div class="section-header center">
+          <span class="section-badge"><i class="fa-solid fa-cubes"></i> Easy 4-Step Process</span>
+          <h2 class="section-title">How My City Service Works</h2>
+          <p class="section-subtitle">Booking doorstep professional help is as simple as ordering food</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">01</div>
+            <div class="step-icon-wrap"><i class="fa-solid fa-hand-pointer"></i></div>
+            <h3 class="step-title">Choose Service</h3>
+            <p class="step-desc">Pick your required service, add-ons, or customized combo packages.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">02</div>
+            <div class="step-icon-wrap"><i class="fa-regular fa-calendar-check"></i></div>
+            <h3 class="step-title">Select Time Slot</h3>
+            <p class="step-desc">Choose a convenient date and time slot that fits your schedule.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">03</div>
+            <div class="step-icon-wrap"><i class="fa-solid fa-truck-fast"></i></div>
+            <h3 class="step-title">Doorstep Delivery</h3>
+            <p class="step-desc">A verified service partner arrives with all required tools and materials.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">04</div>
+            <div class="step-icon-wrap"><i class="fa-solid fa-credit-card"></i></div>
+            <h3 class="step-title">Pay Post-Service</h3>
+            <p class="step-desc">Inspect the finished job and pay seamlessly via Cash, UPI, or Card.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Customer Testimonials -->
+      <section class="section testimonials-section">
+        <div class="section-header center">
+          <span class="section-badge"><i class="fa-solid fa-heart"></i> Happy Customers</span>
+          <h2 class="section-title">What City Residents Say</h2>
+          <p class="section-subtitle">Over 10,000+ local families trust My City Service every month</p>
+        </div>
+
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="testimonial-text">"Booked home deep cleaning before Diwali in Chhindwara. The team was prompt,
+              brought heavy-duty vacuum machines and left my 3BHK sparkling clean! Highly recommended."</p>
+            <div class="testimonial-user">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80"
+                alt="Pooja Sharma" class="user-avatar" onerror="this.src='https://ui-avatars.com/api/?name=Pooja+S'">
+              <div>
+                <h4 class="user-name">Pooja Sharma</h4>
+                <span class="user-loc">Gulabra, Chhindwara</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="testimonial-text">"The electrician arrived in just 25 minutes after I booked. Replaced our burnt
+              inverter circuit board cleanly and gave honest advice. Extremely fair pricing!"</p>
+            <div class="testimonial-user">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80"
+                alt="Rajesh Verma" class="user-avatar" onerror="this.src='https://ui-avatars.com/api/?name=Rajesh+V'">
+              <div>
+                <h4 class="user-name">Rajesh Verma</h4>
+                <span class="user-loc">Parasia Road, Chhindwara</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+            <p class="testimonial-text">"Salon at home is a blessing for working mothers. The beautician was super
+              hygienic with single-use kits. The glow facial and pedicure were top notch!"</p>
+            <div class="testimonial-user">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80"
+                alt="Sneha Patel" class="user-avatar" onerror="this.src='https://ui-avatars.com/api/?name=Sneha+P'">
+              <div>
+                <h4 class="user-name">Sneha Patel</h4>
+                <span class="user-loc">VIP Road, Chhindwara</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- App Download / Help Banner -->
+      <section class="section app-cta-banner">
+        <div class="cta-banner-content">
+          <div class="cta-text">
+            <h2>Need an urgent service partner right now?</h2>
+            <p>Our priority helpline connects you with nearest certified technicians in under 15 minutes.</p>
+            <div class="cta-actions">
+              <button class="btn btn-gold" onclick="openHelpModal()"><i class="fa-solid fa-phone-volume"></i> Call
+                Priority Desk</button>
+              <button class="btn btn-outline-white" onclick="openHelpModal()"><i class="fa-brands fa-whatsapp"></i> Chat
+                on WhatsApp</button>
+            </div>
+          </div>
+          <div class="cta-graphic desktop-only">
+            <i class="fa-solid fa-shield-heart cta-icon-bg"></i>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ================= VIEW 2: CATEGORIES PAGE ================= -->
+    <section class="app-view" id="view-categories">
+      <div class="page-header-bar">
+        <button class="btn-icon-back" onclick="router.back()" aria-label="Go Back">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div class="page-header-title-box">
+          <h2 class="page-title">All Service Categories</h2>
+          <span class="page-subtitle">21 professional categories available in your area</span>
+        </div>
+      </div>
+
+      <!-- Categories Filter Search Bar -->
+      <div class="category-search-container">
+        <div class="search-input-box small">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="categoryFilterInput" placeholder="Filter categories (e.g. AC, Salon, Driver)...">
+          <button class="clear-search-btn hidden" id="clearCatSearchBtn">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="cat-type-pills">
+        <button class="pill-btn active" data-cat-group="all">All Services</button>
+        <button class="pill-btn" data-cat-group="home">Home & Repair</button>
+        <button class="pill-btn" data-cat-group="personal">Personal & Care</button>
+        <button class="pill-btn" data-cat-group="appliance">Appliance Care</button>
+        <button class="pill-btn" data-cat-group="moving">Moving & Security</button>
+      </div>
+
+      <!-- All Categories 4-Column Grid (Mobile 4-col, Desktop multi-col) -->
+      <div class="all-categories-grid" id="allCategoriesGrid">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </section>
+
+    <!-- ================= VIEW 3: CATEGORY DETAILS & SUBCATEGORIES ================= -->
+    <section class="app-view" id="view-category-detail">
+      <!-- Category Hero Banner with Cover Photo -->
+      <div class="category-hero-banner" id="categoryHeroBanner">
+        <div class="category-hero-overlay"></div>
+        <div class="category-hero-header">
+          <button class="hero-action-btn" onclick="router.back()" aria-label="Back">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+          <div class="hero-header-actions">
+            <button class="hero-action-btn" id="categoryShareBtn" aria-label="Share Category"
+              title="Share this service">
+              <i class="fa-solid fa-arrow-up-from-bracket"></i>
+            </button>
+            <button class="hero-action-btn" id="categoryFavBtn" aria-label="Bookmark Category"
+              title="Save to favorites">
+              <i class="fa-regular fa-heart"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="category-hero-content">
+          <span class="category-hero-badge" id="categoryBadgeText">Verified Specialists</span>
+          <h1 class="category-hero-title" id="categoryTitle">Our Salon Services</h1>
+          <div class="category-hero-meta">
+            <span class="meta-rating"><i class="fa-solid fa-star"></i> <strong id="categoryRating">4.85</strong> (1,240+
+              reviews)</span>
+            <span class="meta-divider">•</span>
+            <span class="meta-coverage"><i class="fa-solid fa-location-dot"></i> Covered in Chhindwara</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subcategories Section with Horizontal Scroll Bar -->
+      <div class="subcategories-nav-section">
+        <div class="subcategories-title-row">
+          <h3 class="subcat-heading">Select Subcategory</h3>
+          <span class="subcat-count" id="subcatCountLabel">8 options</span>
+        </div>
+
+        <!-- Horizontal scrollable subcategory pills with photos -->
+        <div class="subcategories-scroll-track" id="subcategoriesTrack">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Services List for Active Subcategory -->
+      <div class="subcategory-services-section">
+        <div class="services-list-header">
+          <div>
+            <h3 class="active-subcat-title" id="activeSubcatTitle">All Services</h3>
+            <p class="active-subcat-desc" id="activeSubcatDesc">Choose items to book instantly or add to your service
+              cart</p>
+          </div>
+          <!-- Quick Sort Dropdown -->
+          <div class="sort-select-wrap">
+            <label for="subcatSortSelect" class="sr-only">Sort</label>
+            <select id="subcatSortSelect" class="form-select-sm">
+              <option value="popular">Most Popular</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Top Rated</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="services-cards-grid" id="categoryServicesGrid">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 4: SERVICE DETAILS VIEW ================= -->
+    <section class="app-view" id="view-service-detail">
+      <div class="page-header-bar sticky-top">
+        <button class="btn-icon-back" onclick="router.back()" aria-label="Go Back">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div class="page-header-title-box">
+          <h2 class="page-title" id="svcHeaderTitle">Service Details</h2>
+          <span class="page-subtitle" id="svcHeaderSub">100% Satisfaction Guarantee</span>
+        </div>
+        <button class="hero-action-btn flat" id="svcShareBtn" title="Share Service">
+          <i class="fa-solid fa-share-nodes"></i>
+        </button>
+      </div>
+
+      <div class="service-detail-container" id="serviceDetailContainer">
+        <!-- Rendered dynamically with large photo, specs, what's included, add-ons, reviews, and booking bar -->
+      </div>
+    </section>
+
+    <!-- ================= VIEW 5: SEARCH & CATALOG VIEW ================= -->
+    <section class="app-view" id="view-search">
+      <div class="page-header-bar">
+        <button class="btn-icon-back" onclick="router.back()" aria-label="Go Back">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div class="page-header-title-box">
+          <h2 class="page-title">Service Search & Filters</h2>
+          <span class="page-subtitle" id="searchResultsCount">Showing all services</span>
+        </div>
+      </div>
+
+      <!-- Search & Filters Toolbar -->
+      <div class="search-filters-bar">
+        <div class="filter-controls-row">
+          <div class="filter-group">
+            <label for="filterCategorySelect">Category</label>
+            <select id="filterCategorySelect" class="filter-select">
+              <option value="all">All Categories</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="filterSortSelect">Sort By</label>
+            <select id="filterSortSelect" class="filter-select">
+              <option value="popular">Most Popular</option>
+              <option value="rating">Highest Rated</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="filterPriceMax">Max Price: <span id="priceRangeValue">₹3,000</span></label>
+            <input type="range" id="filterPriceMax" min="99" max="5000" step="50" value="5000" class="range-slider">
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Results Grid -->
+      <div class="services-cards-grid" id="searchResultsGrid">
+        <!-- Dynamic -->
+      </div>
+    </section>
+
+    <!-- ================= VIEW 6: SHOPPING CART ================= -->
+    <section class="app-view" id="view-cart">
+      <div class="page-header-bar">
+        <button class="btn-icon-back" onclick="router.back()" aria-label="Go Back">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div class="page-header-title-box">
+          <h2 class="page-title">My Service Cart</h2>
+          <span class="page-subtitle" id="cartHeaderSubtitle">Review your scheduled services</span>
+        </div>
+        <button class="btn-text-danger" id="clearCartBtn" title="Empty Cart">
+          <i class="fa-regular fa-trash-can"></i> Clear
+        </button>
+      </div>
+
+      <div class="cart-layout" id="cartLayoutContainer">
+        <!-- Rendered by JavaScript: Cart items on left, Bill summary on right -->
+      </div>
+    </section>
+
+    <!-- ================= VIEW 7: BOOKINGS HISTORY ================= -->
+    <section class="app-view" id="view-bookings">
+      <div class="page-header-bar">
+        <button class="btn-icon-back" onclick="router.navigate('home')" aria-label="Go to Home">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div class="page-header-title-box">
+          <h2 class="page-title">My Bookings</h2>
+          <span class="page-subtitle">Track, reschedule, or cancel your doorstep appointments</span>
+        </div>
+      </div>
+
+      <!-- Bookings Tabs -->
+      <div class="booking-tabs-nav">
+        <button class="booking-tab-btn active" data-tab="upcoming">
+          Upcoming <span class="tab-badge" id="upcomingBadge">0</span>
+        </button>
+        <button class="booking-tab-btn" data-tab="completed">
+          Completed <span class="tab-badge" id="completedBadge">0</span>
+        </button>
+        <button class="booking-tab-btn" data-tab="cancelled">
+          Cancelled <span class="tab-badge" id="cancelledBadge">0</span>
+        </button>
+      </div>
+
+      <!-- Bookings List Container -->
+      <div class="bookings-list-container" id="bookingsListContainer">
+        <!-- Populated from localStorage -->
+      </div>
+    </section>
+
+    <!-- ================= VIEW 8: USER PROFILE ================= -->
+    <section class="app-view" id="view-profile">
+      <div class="profile-hero-card">
+        <div class="profile-avatar-wrap">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
+            alt="Anjali Sharma" class="profile-avatar-large" id="profileLargeAvatar"
+            onerror="this.src='https://ui-avatars.com/api/?name=Anjali+S&size=120&background=1e3a8a&color=fff'">
+          <button class="change-avatar-btn" id="changeAvatarBtn" title="Change Avatar">
+            <i class="fa-solid fa-camera"></i>
+          </button>
+        </div>
+        <div class="profile-main-meta">
+          <h2 class="profile-user-name" id="profileDisplayName">Anjali Sharma</h2>
+          <p class="profile-user-phone" id="profileDisplayPhone">+91 98260 12345</p>
+          <span class="profile-member-badge"><i class="fa-solid fa-crown"></i> Prime Club Member</span>
+        </div>
+        <button class="btn btn-outline-white btn-sm" id="editProfileBtn">
+          <i class="fa-solid fa-pen-to-square"></i> Edit Profile
+        </button>
+      </div>
+
+      <!-- Profile Quick Stats -->
+      <div class="profile-stats-grid">
+        <div class="stat-box" onclick="router.navigate('bookings')">
+          <span class="stat-number" id="profileBookingsCount">0</span>
+          <span class="stat-label">Total Bookings</span>
+        </div>
+        <div class="stat-box" onclick="openWishlistModal()">
+          <span class="stat-number" id="profileWishlistCount">0</span>
+          <span class="stat-label">Favorites</span>
+        </div>
+        <div class="stat-box" onclick="router.navigate('offers')">
+          <span class="stat-number">4</span>
+          <span class="stat-label">Active Coupons</span>
+        </div>
+      </div>
+
+      <!-- Profile Options List -->
+      <div class="profile-menu-section">
+        <div class="profile-menu-group">
+          <h4 class="menu-group-title">My Account</h4>
+          <button class="profile-menu-item" onclick="openAddressManagerModal()">
+            <div class="menu-item-icon blue"><i class="fa-solid fa-map-location-dot"></i></div>
+            <div class="menu-item-text">
+              <span class="menu-title">Saved Service Addresses</span>
+              <span class="menu-desc" id="profileSavedAddressPreview">Home, Office & 1 other</span>
+            </div>
+            <i class="fa-solid fa-chevron-right menu-arrow"></i>
+          </button>
+
+          <button class="profile-menu-item" onclick="openWishlistModal()">
+            <div class="menu-item-icon red"><i class="fa-solid fa-heart"></i></div>
+            <div class="menu-item-text">
+              <span class="menu-title">Saved & Favorite Services</span>
+              <span class="menu-desc">Quickly re-book your liked services</span>
+            </div>
+            <i class="fa-solid fa-chevron-right menu-arrow"></i>
+          </button>
+
+          <button class="profile-menu-item" onclick="router.navigate('offers')">
+            <div class="menu-item-icon green"><i class="fa-solid fa-ticket"></i></div>
+            <div class="menu-item-text">
+              <span class="menu-title">Available Offers & Coupons</span>
+              <span class="menu-desc">Save up to 50% with active codes</span>
+            </div>
+            <i class="fa-solid fa-chevron-right menu-arrow"></i>
+          </button>
+        </div>
+
+        <div class="profile-menu-group">
+          <h4 class="menu-group-title">Support & Safety</h4>
+          <button class="profile-menu-item" onclick="openHelpModal()">
+            <div class="menu-item-icon amber"><i class="fa-solid fa-headset"></i></div>
+            <div class="menu-item-text">
+              <span class="menu-title">24x7 Help & Customer Care</span>
+              <span class="menu-desc">Call, WhatsApp or read FAQs</span>
+            </div>
+            <i class="fa-solid fa-chevron-right menu-arrow"></i>
+          </button>
+
+          <button class="profile-menu-item" onclick="openPolicyModal('terms')">
+            <div class="menu-item-icon purple"><i class="fa-solid fa-file-contract"></i></div>
+            <div class="menu-item-text">
+              <span class="menu-title">Terms & Service Agreement</span>
+              <span class="menu-desc">Transparent pricing & rework warranty</span>
+            </div>
+            <i class="fa-solid fa-chevron-right menu-arrow"></i>
+          </button>
+
+          <button class="profile-menu-item" onclick="openPolicyModal('privacy')">
+            <div class="menu-item-icon teal"><i class="fa-solid fa-user-shield"></i></div>
+            <div class="menu-item-text">
+              <span class="menu-title">Privacy Policy</span>
+              <span class="menu-desc">How your data is kept secure</span>
+            </div>
+            <i class="fa-solid fa-chevron-right menu-arrow"></i>
+          </button>
+
+          <button class="profile-menu-item" onclick="resetDemoDataPrompt()">
+            <div class="menu-item-icon dark"><i class="fa-solid fa-rotate-left"></i></div>
+            <div class="menu-item-text">
+              <span class="menu-title">Reset Demo Data</span>
+              <span class="menu-desc">Restore sample bookings and settings</span>
+            </div>
+            <i class="fa-solid fa-chevron-right menu-arrow"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 9: OFFERS VIEW ================= -->
+    <section class="app-view" id="view-offers">
+      <div class="page-header-bar">
+        <button class="btn-icon-back" onclick="router.back()" aria-label="Go Back">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div class="page-header-title-box">
+          <h2 class="page-title">Discount Deals & Coupons</h2>
+          <span class="page-subtitle">Exclusive savings for your household</span>
+        </div>
+      </div>
+
+      <div class="offers-page-content" id="offersPageContainer">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= WEBSITE FOOTER ================= -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-top-grid">
+        <div class="footer-col brand-col">
+          <div class="brand-group">
+            <div class="brand-logo">
+              <i class="fa-solid fa-city-bolt brand-icon"></i>
+            </div>
+            <div class="brand-text">
+              <h3 class="brand-name white">My City <span class="highlight">Service</span></h3>
+            </div>
+          </div>
+          <p class="footer-about-text">
+            My City Service is your trusted one-stop destination for certified electricians, plumbers, cleaners, salon
+            stylists, appliance mechanics and drivers. Delivering convenience, safety, and fixed transparent rates.
+          </p>
+          <div class="social-links-row">
+            <a href="#" aria-label="Facebook" class="social-btn"
+              onclick="showToast('Opened Facebook page', 'info'); return false;"><i
+                class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram" class="social-btn"
+              onclick="showToast('Opened Instagram page', 'info'); return false;"><i
+                class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter" class="social-btn"
+              onclick="showToast('Opened Twitter page', 'info'); return false;"><i
+                class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn" class="social-btn"
+              onclick="showToast('Opened LinkedIn page', 'info'); return false;"><i
+                class="fa-brands fa-linkedin-in"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Popular Services</h4>
+          <ul class="footer-links">
+            <li><a href="#category?id=salon" onclick="router.navigate('category', {id: 'salon'})">Salon at Home</a></li>
+            <li><a href="#category?id=cleaning" onclick="router.navigate('category', {id: 'cleaning'})">Home Deep
+                Cleaning</a></li>
+            <li><a href="#category?id=electrician"
+                onclick="router.navigate('category', {id: 'electrician'})">Electrician & Wiring</a></li>
+            <li><a href="#category?id=plumbing" onclick="router.navigate('category', {id: 'plumbing'})">Plumbing &
+                Leakage</a></li>
+            <li><a href="#category?id=appliance" onclick="router.navigate('category', {id: 'appliance'})">AC & Appliance
+                Repair</a></li>
+            <li><a href="#category?id=carpenter" onclick="router.navigate('category', {id: 'carpenter'})">Carpentry &
+                Furniture</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#categories" onclick="router.navigate('categories')">All 21 Categories</a></li>
+            <li><a href="#bookings" onclick="router.navigate('bookings')">Track Bookings</a></li>
+            <li><a href="#offers" onclick="router.navigate('offers')">Coupons & Offers</a></li>
+            <li><a href="javascript:void(0)" onclick="openHelpModal()">Help & Support</a></li>
+            <li><a href="javascript:void(0)" onclick="openPolicyModal('terms')">Terms & Conditions</a></li>
+            <li><a href="javascript:void(0)" onclick="openPolicyModal('privacy')">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">City Office</h4>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Shop 14, City Center Mall, Parasia Road, Chhindwara, Madhya Pradesh - 480001</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>+91 7162 245678 / +91 98260 12345</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>support@mycityservice.in</span>
+          </div>
+          <div class="badge-box">
+            <span class="badge-secure"><i class="fa-solid fa-lock"></i> 100% Safe & Secure Checkout</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <p>&copy; 2026 My City Service Technologies Pvt Ltd. All rights reserved.</p>
+        <p class="demo-disclaimer">Frontend Demonstration Website designed with HTML5, CSS3 &amp; Vanilla JavaScript.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MOBILE FIXED BOTTOM NAVIGATION ================= -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+    <button class="bottom-nav-item active" data-nav="home" onclick="router.navigate('home')">
+      <div class="nav-icon-wrap">
+        <i class="fa-solid fa-house"></i>
+      </div>
+      <span class="nav-label">Home</span>
+    </button>
+
+    <button class="bottom-nav-item" data-nav="categories" onclick="router.navigate('categories')">
+      <div class="nav-icon-wrap">
+        <i class="fa-solid fa-grid-2"></i>
+      </div>
+      <span class="nav-label">Categories</span>
+    </button>
+
+    <button class="bottom-nav-item" data-nav="bookings" onclick="router.navigate('bookings')">
+      <div class="nav-icon-wrap">
+        <i class="fa-solid fa-calendar-check"></i>
+        <span class="nav-badge" id="bottomBookingsBadge">0</span>
+      </div>
+      <span class="nav-label">Bookings</span>
+    </button>
+
+    <button class="bottom-nav-item" data-nav="profile" onclick="router.navigate('profile')">
+      <div class="nav-icon-wrap">
+        <i class="fa-solid fa-user"></i>
+      </div>
+      <span class="nav-label">Profile</span>
+    </button>
+  </nav>
+
+  <!-- ================= FLOATING HELP BUTTON ================= -->
+  <button class="floating-help-btn" id="floatingHelpBtn" title="Help & Support" onclick="openHelpModal()"
+    aria-label="Contact Support">
+    <i class="fa-solid fa-headset"></i>
+    <span class="help-tooltip">Need Help?</span>
+  </button>
+
+  <!-- ================= MODALS & DRAWERS ================= -->
+
+  <!-- 1. LOCATION SELECTOR MODAL -->
+  <div class="modal-overlay hidden" id="locationModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-location-crosshairs modal-title-icon"></i>
+          <div>
+            <h3 class="modal-title">Select Your Service City</h3>
+            <p class="modal-subtitle">We currently serve key towns across Madhya Pradesh & Maharashtra</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('locationModal')" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="search-input-box modal-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="citySearchInput" placeholder="Search city or locality...">
+        </div>
+
+        <div class="current-location-banner" id="detectLocationBtn">
+          <i class="fa-solid fa-location-arrow icon-gps"></i>
+          <div class="detect-text">
+            <strong>Use Current Location (GPS)</strong>
+            <span>Detect locality automatically</span>
+          </div>
+        </div>
+
+        <div class="cities-section">
+          <h4 class="sub-heading">Featured Service Cities</h4>
+          <div class="cities-chips-grid" id="citiesChipsGrid">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <div class="localities-section" id="localitiesSection">
+          <h4 class="sub-heading">Popular Localities in <span id="selectedCityLabel">Chhindwara</span></h4>
+          <div class="localities-list" id="localitiesList">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. NOTIFICATIONS DRAWER -->
+  <div class="modal-overlay hidden" id="notificationsModal">
+    <div class="drawer-card right">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-bell modal-title-icon"></i>
+          <div>
+            <h3 class="modal-title">Notifications</h3>
+            <span class="modal-subtitle" id="unreadNotifCountText">3 unread notifications</span>
+          </div>
+        </div>
+        <div class="drawer-actions">
+          <button class="btn-text-sm" id="markAllNotifsReadBtn">Mark read</button>
+          <button class="modal-close-btn" onclick="closeModal('notificationsModal')" aria-label="Close">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-body p-0">
+        <div class="notifications-list" id="notificationsList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-outline w-100" id="clearAllNotifsBtn">Clear All Notifications</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. BOOKING FORM MODAL -->
+  <div class="modal-overlay hidden" id="bookingModal">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-calendar-plus modal-title-icon"></i>
+          <div>
+            <h3 class="modal-title">Schedule Doorstep Service</h3>
+            <p class="modal-subtitle">Complete your details to confirm your slot</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('bookingModal')" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form id="bookingForm" onsubmit="handleBookingFormSubmit(event)">
+          <!-- Selected Service Summary Card -->
+          <div class="booking-service-preview-card" id="bookingServicePreview">
+            <!-- Injected by JS -->
+          </div>
+
+          <!-- Step 1: Date & Time Selection -->
+          <div class="booking-section-box">
+            <h4 class="form-section-title"><i class="fa-regular fa-calendar-days"></i> 1. Choose Date & Time Slot</h4>
+
+            <div class="date-selection-row">
+              <label for="bookingDateInput" class="form-label">Service Date *</label>
+              <input type="date" id="bookingDateInput" class="form-control" required>
+              <span class="form-hint">Bookings open for the next 14 days</span>
+            </div>
+
+            <div class="time-slots-box">
+              <label class="form-label">Available Time Slot *</label>
+              <div class="slots-grid" id="timeSlotsGrid">
+                <!-- Injected by JS (e.g. 09:00 AM, 11:30 AM, 02:00 PM, 04:30 PM, 06:30 PM) -->
+              </div>
+              <input type="hidden" id="selectedTimeSlotInput" required>
+            </div>
+          </div>
+
+          <!-- Step 2: Customer Address & Contact -->
+          <div class="booking-section-box">
+            <h4 class="form-section-title"><i class="fa-solid fa-house-chimney-user"></i> 2. Service Address & Contact
+            </h4>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="bookingCustomerName" class="form-label">Full Name *</label>
+                <input type="text" id="bookingCustomerName" class="form-control" placeholder="e.g. Anjali Sharma"
+                  required>
+              </div>
+
+              <div class="form-group">
+                <label for="bookingCustomerPhone" class="form-label">Phone Number *</label>
+                <input type="tel" id="bookingCustomerPhone" class="form-control" placeholder="10-digit mobile number"
+                  pattern="[0-9]{10}" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="bookingCustomerAddress" class="form-label">Complete Street Address *</label>
+              <textarea id="bookingCustomerAddress" rows="2" class="form-control"
+                placeholder="House/Flat No, Landmark, Street Name, Colony" required></textarea>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="bookingCitySelect" class="form-label">City *</label>
+                <input type="text" id="bookingCitySelect" class="form-control" value="Chhindwara, MP" readonly>
+              </div>
+
+              <div class="form-group">
+                <label for="bookingPincode" class="form-label">Pincode *</label>
+                <input type="text" id="bookingPincode" class="form-control" placeholder="e.g. 480001" pattern="[0-9]{6}"
+                  required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="bookingInstructions" class="form-label">Special Instructions (Optional)</label>
+              <input type="text" id="bookingInstructions" class="form-control"
+                placeholder="e.g. Please bring extra 15A socket; Call upon arrival">
+            </div>
+          </div>
+
+          <!-- Step 3: Payment Method -->
+          <div class="booking-section-box">
+            <h4 class="form-section-title"><i class="fa-solid fa-wallet"></i> 3. Payment Preference</h4>
+            <div class="payment-options-grid">
+              <label class="payment-option active">
+                <input type="radio" name="paymentMethod" value="Cash / UPI on Service" checked>
+                <div class="payment-content">
+                  <i class="fa-solid fa-money-bill-wave"></i>
+                  <div>
+                    <strong>Pay After Service (Recommended)</strong>
+                    <p>Pay via UPI QR, Cash or Card after complete satisfaction</p>
+                  </div>
+                </div>
+              </label>
+
+              <label class="payment-option">
+                <input type="radio" name="paymentMethod" value="Online Demo Payment">
+                <div class="payment-content">
+                  <i class="fa-solid fa-credit-card"></i>
+                  <div>
+                    <strong>Online Demo Pay (Prepaid)</strong>
+                    <p>Instant simulation with zero-cancellation fee</p>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Bill Summary in Booking Form -->
+          <div class="booking-bill-card" id="bookingBillCard">
+            <!-- Dynamic total breakdown -->
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" onclick="closeModal('bookingModal')">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="confirmBookingSubmitBtn">
+              <i class="fa-solid fa-circle-check"></i> Confirm Appointment
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. BOOKING SUCCESS CONFIRMATION MODAL -->
+  <div class="modal-overlay hidden" id="bookingSuccessModal">
+    <div class="modal-card modal-center text-center">
+      <div class="success-animation-wrap">
+        <div class="success-checkmark-circle">
+          <i class="fa-solid fa-check"></i>
+        </div>
+      </div>
+
+      <span class="badge-success-pill">Appointment Confirmed!</span>
+      <h3 class="success-heading">Your Service is Booked</h3>
+      <p class="success-text">A certified service technician has been assigned. You'll receive real-time updates via
+        SMS.</p>
+
+      <div class="booking-receipt-card" id="successReceiptDetails">
+        <!-- Rendered by JS with ID, Date, Time, Service, Total -->
+      </div>
+
+      <div class="demo-notice-box">
+        <i class="fa-solid fa-circle-info"></i>
+        <span><strong>Frontend Demo Note:</strong> This booking is saved in your browser's localStorage. You can view or
+          cancel it from the <strong>Bookings</strong> tab anytime.</span>
+      </div>
+
+      <div class="modal-actions-row">
+        <button class="btn btn-primary" onclick="closeModal('bookingSuccessModal'); router.navigate('bookings');">
+          <i class="fa-solid fa-calendar-check"></i> View in Bookings
+        </button>
+        <button class="btn btn-outline" onclick="closeModal('bookingSuccessModal'); router.navigate('home');">
+          Back to Home
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. BOOKING DETAILS / CANCEL CONFIRMATION MODAL -->
+  <div class="modal-overlay hidden" id="bookingDetailsModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-receipt modal-title-icon"></i>
+          <div>
+            <h3 class="modal-title">Booking Details</h3>
+            <span class="modal-subtitle" id="bookingDetailRef">Ref: MCS-2026-0000</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('bookingDetailsModal')" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body" id="bookingDetailContent">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. EDIT PROFILE MODAL -->
+  <div class="modal-overlay hidden" id="editProfileModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Your Profile</h3>
+        <button class="modal-close-btn" onclick="closeModal('editProfileModal')"><i
+            class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="editProfileForm" onsubmit="saveUserProfile(event)">
+          <div class="form-group">
+            <label class="form-label" for="editNameInput">Full Name</label>
+            <input type="text" id="editNameInput" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editPhoneInput">Phone Number</label>
+            <input type="tel" id="editPhoneInput" class="form-control" pattern="[0-9]{10}" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editEmailInput">Email Address</label>
+            <input type="email" id="editEmailInput" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editAvatarSelect">Choose Avatar Style</label>
+            <select id="editAvatarSelect" class="form-control">
+              <option
+                value="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80">
+                Female Professional (Default)</option>
+              <option
+                value="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80">
+                Male Professional</option>
+              <option
+                value="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80">
+                Modern Casual</option>
+              <option
+                value="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80">
+                Creative Artist</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" onclick="closeModal('editProfileModal')">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. ADDRESS MANAGER MODAL -->
+  <div class="modal-overlay hidden" id="addressManagerModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Saved Service Addresses</h3>
+        <button class="modal-close-btn" onclick="closeModal('addressManagerModal')"><i
+            class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="address-list" id="savedAddressesList">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="add-new-address-form-box">
+          <h4 class="sub-heading mt-3">Add New Address</h4>
+          <form id="newAddressForm" onsubmit="handleAddNewAddress(event)">
+            <div class="form-grid-2">
+              <input type="text" id="newAddressTitle" placeholder="Address Tag (Home, Office, Parents)"
+                class="form-control" required>
+              <input type="text" id="newAddressPincode" placeholder="Pincode (e.g. 480001)" class="form-control"
+                required pattern="[0-9]{6}">
+            </div>
+            <textarea id="newAddressFull" rows="2" placeholder="House No, Landmark, Area..." class="form-control mt-2"
+              required></textarea>
+            <button type="submit" class="btn btn-primary btn-sm mt-2"><i class="fa-solid fa-plus"></i> Add
+              Address</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. WISHLIST / FAVORITES MODAL -->
+  <div class="modal-overlay hidden" id="wishlistModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title"><i class="fa-solid fa-heart text-danger"></i> Favorite Services</h3>
+        <button class="modal-close-btn" onclick="closeModal('wishlistModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" id="wishlistModalBody">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. HELP & SUPPORT MODAL -->
+  <div class="modal-overlay hidden" id="helpModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-headset modal-title-icon"></i>
+          <div>
+            <h3 class="modal-title">Customer Care & Support</h3>
+            <p class="modal-subtitle">We are here to assist you 7 days a week, 8am – 9pm</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('helpModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="help-options-grid">
+          <a href="tel:+917162245678" class="help-action-card">
+            <div class="help-icon-wrap phone"><i class="fa-solid fa-phone"></i></div>
+            <div class="help-text">
+              <strong>Call Support Desk</strong>
+              <span>+91 7162 245678 (Toll Free)</span>
+            </div>
+          </a>
+
+          <a href="https://wa.me/919826012345?text=Hello%20MyCityService%20Support" target="_blank" rel="noopener"
+            class="help-action-card">
+            <div class="help-icon-wrap whatsapp"><i class="fa-brands fa-whatsapp"></i></div>
+            <div class="help-text">
+              <strong>WhatsApp Assistant</strong>
+              <span>Instant chat with support executive</span>
+            </div>
+          </a>
+
+          <a href="mailto:support@mycityservice.in" class="help-action-card">
+            <div class="help-icon-wrap email"><i class="fa-solid fa-envelope"></i></div>
+            <div class="help-text">
+              <strong>Email Query</strong>
+              <span>support@mycityservice.in</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="faq-accordion-section">
+          <h4 class="sub-heading">Frequently Asked Questions</h4>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>How are professionals background verified?</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>Every technician undergoes government ID verification, local police clearance checks, and skill-testing
+                before joining the My City Service network.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Is there a service warranty if something goes wrong?</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>Yes! We offer a 7-day unconditional rework warranty on repairs and electrical work. If the issue
+                reoccurs, we re-service at zero cost.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              <span>Can I reschedule or cancel my booking?</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>You can cancel or change slots anytime up to 2 hours before the scheduled time slot with zero
+                cancellation fees.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. POLICY / TERMS MODAL -->
+  <div class="modal-overlay hidden" id="policyModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="policyModalTitle">Terms &amp; Conditions</h3>
+        <button class="modal-close-btn" onclick="closeModal('policyModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body formatted-text" id="policyModalContent">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Popups Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
+
+</html>
